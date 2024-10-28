@@ -5,7 +5,9 @@ interface Props {
 
 const { title } = Astro.props;
 
+import Hero from '../components/Hero.astro';
 import NavBar from '../components/NavBar.astro';
+
 ---
 
 <!doctype html>
@@ -21,6 +23,7 @@ import NavBar from '../components/NavBar.astro';
 	<body>
 		<NavBar/>
 		<slot />
+		<Hero/>
 	</body>
 </html>
 <style is:global>
