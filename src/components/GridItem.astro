@@ -1,0 +1,47 @@
+---
+import { Picture } from "astro:assets";
+
+const {
+  type,
+  colSpan,
+  rowSpan,
+  bgColor,
+  image,
+  alt,
+  text,
+  padding = 'p-20',
+  additionalClasses = ''
+} = Astro.props;
+
+const baseClasses = [
+  `col-span-${colSpan}`,
+  `row-span-${rowSpan}`,
+  'relative',
+  padding,
+  'rounded-xl',
+  bgColor === 'primary' ? 'bg-primary' : 'bg-white',
+  type === 'text' ? 'flex flex-row justify-center' : 'flex',
+  additionalClasses
+].join(' ');
+
+const imageWrapperClasses = type === 'image' && colSpan === 1 
+  ? 'flex justify-center items-center w-full' 
+  : '';
+---
+
+<div class={baseClasses}>
+  {type === 'image' ? (
+    <div class={imageWrapperClasses}>
+      <Picture
+        src={image}
+        alt={alt || ''}
+        width={colSpan === 2 ? 600 : undefined}
+        height={colSpan === 2 ? 900 : undefined}
+        loading={colSpan === 2 ? 'eager' : 'lazy'}
+        format="avif"
+      />
+    </div>
+  ) : (
+    <h2 class="text-center text-7xl font-bold text-[#000000] overflow" set:html={text} />
+  )}
+</div>

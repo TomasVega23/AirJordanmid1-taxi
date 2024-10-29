@@ -1,72 +1,88 @@
 ---
 import Container from "./Container.astro";
-import { Picture } from "astro:assets";
-import airjordan from '../assets/AIR_JORDAN-logo.png'
-import airjordan1 from '../assets/air-jordan-1.jpg'
-import iconJordan from '../assets/icon-jordan.png'
-import arribaJordan from '../assets/arriba-jordan.avif'
-import suelaJordan from '../assets/suela-jordan.webp'
+import GridItem from "./GridItem.astro";
+
+ //Image imports
+import airJordanLogo from '../assets/AIR_JORDAN-logo.png';
+import airJordan1 from '../assets/air-jordan-1.jpg';
+import iconJordan from '../assets/icon-jordan.png';
+import arribaJordan from '../assets/arriba-jordan.avif';
+
+const gridItems = [
+  {
+    type: 'image',
+    colSpan: 2,
+    rowSpan: 2,
+    bgColor: 'primary',
+    image: airJordan1,
+    alt: 'Air Jordan 1 Taxi Sneaker',
+    padding: 'p-20'
+  },
+  {
+    type: 'text',
+    colSpan: 1,
+    rowSpan: 3,
+    bgColor: 'white',
+    text: 'AIR JORDAN 1 <span class="text-primary">TAXI</span>',
+    padding: 'p-20'
+  },
+  {
+    type: 'image',
+    colSpan: 1,
+    rowSpan: 3,
+    bgColor: 'primary',
+    image: arribaJordan,
+    alt: 'Air Jordan Hero Image',
+    padding: 'p-1'
+  },
+  {
+    type: 'image',
+    colSpan: 1,
+    rowSpan: 3,
+    bgColor: 'white',
+    image: iconJordan,
+    alt: 'Jordan Brand Icon',
+    padding: 'p-1',
+    additionalClasses: 'justify-center items-center'
+  },
+  {
+    type: 'image',
+    colSpan: 1,
+    rowSpan: 2,
+    bgColor: 'primary',
+    image: airJordanLogo,
+    alt: 'Air Jordan Logo',
+    padding: 'p-28'
+  }
+];
 ---
 
 <Container>
-  <div class="text-gray-500 ">
+  <div class="text-gray-500">
     <div class="grid gap-6 grid-cols-3 rounded-lg shadow-md">
-    
-      <div 
-        class="col-span-2 row-span-2  p-20 rounded-xl bg-primary"
-      >
-          <Picture
-          src={airjordan1}
-          alt="Astronaut in the air"
-          width="600"
-          height="900"
-          loading="eager"
-          format="avif"
-        />
-      </div>
-    
-      <div 
-        class="col-span-1 row-span-3 flex flex-row justify-center relative p-20 rounded-xl bg-white"
-      >
-         <h2 class="text-center text-8xl font-bold  text-[#000000] fon">
-          AIR JORDAN 1 <span class="text-primary" >TAXI </span>
-        </h2> 
-      </div>
-    
-      <div 
-        class="col-span-1 row-span-3 flex relative p-1 rounded-xl bg-primary"
-      >
-      <div>
-        <Picture
-        src={arribaJordan}
-        alt="air jordan icon"
-      />
-      </div>
-      </div>
-    
-      <div 
-        class="col-span-1 row-span-3 flex justify-center items-center relative p-1 rounded-xl bg-white"
-      >
-      <div>
-        <Picture
-        src={iconJordan}
-        alt="air jordan icon"
-      />
-      </div>
-      </div>
-    
-      <div 
-        class="col-span-1 row-span-2 flex relative p-28 rounded-xl bg-primary"
-      >
-        <div>
-          <Picture
-          src={airjordan}
-          alt="air jordan icon"
-        />
-        </div>
-      </div> 
+      {gridItems.map((item) => (
+        <GridItem {...item} />
+      ))}
     </div>
   </div>
-  
-  
+</Container>
+
+<style>
+  .grid {
+    --grid-cols: 3;
+    display: grid;
+    grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr));
+  }
+
+  @media (max-width: 1044px) {
+    .grid {
+      --grid-cols: 1;
+      gap: 1rem;
+    }
+
+    :global(.col-span-2) {
+      grid-column: span 1;
+    }
+  }
+</style>
 </Container>
